@@ -97,8 +97,3 @@ def process_followers(user):
 process_timeline(theculturist)
 process_followers(theculturist)
 nx.write_gexf(graph, 'theculturist.gexf')
-
-
-
-attrs={'type': 1, 'node_type': 2, 'NodeType': 3, 'nodeType': 4, 'Type': 5, 'nodetype': 6}
-
