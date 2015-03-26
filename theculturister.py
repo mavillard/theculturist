@@ -77,22 +77,22 @@ def prepare_sylva():
     return writers
 
 # GOOGLE
-def create_sessions(writers, article_id, total_views, fb_views, tw_views):
-    for i in range(total_views):
-        session_id = str(uuid.uuid1())
-        session_type = 'Session'
-        if 0 <= i < fb_views:
-            origin = 'facebook'
-        elif fb_views <= i < fb_views + tw_views:
-            origin = 'twitter'
-        else: #fb_views + tw_views <= i < total_views
-            origin = 'other'
-        writers['Session'].writerow([session_id, session_type, origin])
-        writers['session_visits'].writerow([
-            session_id,
-            article_id,
-            'session_visits'
-        ])
+#def create_sessions(writers, article_id, total_views, fb_views, tw_views):
+#    for i in range(total_views):
+#        session_id = str(uuid.uuid1())
+#        session_type = 'Session'
+#        if 0 <= i < fb_views:
+#            origin = 'facebook'
+#        elif fb_views <= i < fb_views + tw_views:
+#            origin = 'twitter'
+#        else: #fb_views + tw_views <= i < total_views
+#            origin = 'other'
+#        writers['Session'].writerow([session_id, session_type, origin])
+#        writers['session_visits'].writerow([
+#            session_id,
+#            article_id,
+#            'session_visits'
+#        ])
 
 def process_google(writers):
     # Website
@@ -152,13 +152,33 @@ def process_google(writers):
                 article_id = url
                 article_type = 'Article'
                 total_views = int(total_views)
+                
+                if url in facebook_sessions:
+                    facebook_views = facebook_sessions[url]
+                else:
+                    facebook_views = 0
+                per_fb_v = 100 * float(facebook_views) / float(total_views)
+                views_from_facebook = '{0:.2f}%'.format(per_fb_v)
+                if url in twitter_sessions:
+                    twitter_views = twitter_sessions[url]
+                else:
+                    twitter_views = 0
+                per_tw_v = 100 * float(twitter_views) / float(total_views)
+                views_from_twitter = '{0:.2f}%'.format(per_tw_v)
+                other_views = total_views - (facebook_views + twitter_views)
+                per_ot_v = 100 * float(other_views) / float(total_views)
+                views_from_other = '{0:.2f}%'.format(per_ot_v)
+                
                 writers['Article'].writerow([
                     article_id,
                     article_type,
                     bounce_rate,
                     entrances,
                     total_views,
-                    url
+                    url,
+                    views_from_facebook,
+                    views_from_other,
+                    views_from_twitter
                 ])
                 article_ids.add(article_id)
                 # Link the article to the website
@@ -167,22 +187,14 @@ def process_google(writers):
                     1,
                     'article_belongs_to'
                 ])
-                # Create the sessions for the article
-                if url in facebook_sessions:
-                    facebook_views = facebook_sessions[url]
-                else:
-                    facebook_views = 0
-                if url in twitter_sessions:
-                    twitter_views = twitter_sessions[url]
-                else:
-                    twitter_views = 0
-                create_sessions(
-                    writers,
-                    article_id,
-                    total_views,
-                    facebook_views,
-                    twitter_views
-                )
+#                # Create the sessions for the article
+#                create_sessions(
+#                    writers,
+#                    article_id,
+#                    total_views,
+#                    facebook_views,
+#                    twitter_views
+#                )
         else:
             break
 

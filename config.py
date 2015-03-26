@@ -24,11 +24,11 @@ SYLVA_DIR_RELATIONS = os.path.join(SYLVA_DIR, 'relations')
 # Schema
 SCHEMA = {
     'nodes': {
-        'Article': ['id', 'type', 'bounce_rate', 'entrances', 'total_views', 'url'],
+        'Article': ['id', 'type', 'bounce_rate', 'entrances', 'total_views', 'url', 'views_from_facebook', 'views_from_other', 'views_from_twitter'],
         'FacebookPage': ['id', 'type', 'name', 'total_likes'],
         'FacebookUser': ['id', 'type', 'name'],
         'Post': ['id', 'type', 'comments', 'date', 'engagement', 'likes', 'permalink', 'reach', 'shares', 'text'],
-        'Session': ['id', 'type', 'origin'],
+#        'Session': ['id', 'type', 'origin'],
         'Tweet': ['id', 'type', 'date', 'engagement', 'favorites', 'hashtags', 'impression', 'permalink', 'replies', 'retweets', 'text'],
         'TwitterAccount': ['id', 'type', 'name', 'total_followers'],
         'TwitterUser': ['id', 'type', 'handle', 'name'],
@@ -42,7 +42,7 @@ SCHEMA = {
         'post_belongs_to': ['source id', 'target id', 'label'],
         'post_links_to': ['source id', 'target id', 'label'],
         'post_mentions': ['source id', 'target id', 'label'],
-        'session_visits': ['source id', 'target id', 'label'],
+#        'session_visits': ['source id', 'target id', 'label'],
         'tw_related_to': ['source id', 'target id', 'label'],
         'tweet_belongs_to': ['source id', 'target id', 'label'],
         'tweet_links_to': ['source id', 'target id', 'label'],
