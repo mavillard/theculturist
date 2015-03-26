@@ -27,9 +27,9 @@ SCHEMA = {
         'Article': ['id', 'type', 'bounce_rate', 'entrances', 'total_views', 'url'],
         'FacebookPage': ['id', 'type', 'name', 'total_likes'],
         'FacebookUser': ['id', 'type', 'name'],
-        'Post': ['id', 'type', 'comments', 'engagement', 'likes', 'permalink', 'date', 'reach', 'shares', 'text'],
+        'Post': ['id', 'type', 'comments', 'date', 'engagement', 'likes', 'permalink', 'reach', 'shares', 'text'],
         'Session': ['id', 'type', 'origin'],
-        'Tweet': ['id', 'type', 'engagement', 'favorites', 'impressions', 'permalink', 'date', 'replies', 'retweets', 'text'],
+        'Tweet': ['id', 'type', 'date', 'engagement', 'favorites', 'hashtags', 'impression', 'permalink', 'replies', 'retweets', 'text'],
         'TwitterAccount': ['id', 'type', 'name', 'total_followers'],
         'TwitterUser': ['id', 'type', 'handle', 'name'],
         'Website': ['id', 'type', 'name', 'total_users'],
@@ -38,7 +38,6 @@ SCHEMA = {
         'article_belongs_to': ['source id', 'target id', 'label'],
         'fb_related_to': ['source id', 'target id', 'label'],
         'fbuser_comments': ['source id', 'target id', 'label'], #date
-        'fbuser_creates': ['source id', 'target id', 'label'],
         'fbuser_likes': ['source id', 'target id', 'label'],
         'post_belongs_to': ['source id', 'target id', 'label'],
         'post_links_to': ['source id', 'target id', 'label'],
@@ -48,7 +47,6 @@ SCHEMA = {
         'tweet_belongs_to': ['source id', 'target id', 'label'],
         'tweet_links_to': ['source id', 'target id', 'label'],
         'tweet_mentions': ['source id', 'target id', 'label'],
-        'twuser_creates': ['source id', 'target id', 'label'],
-        'twuser_retweets': ['source id', 'target id', 'label'],
+        'twuser_retweets': ['source id', 'target id', 'label'], #date
     }
 }
